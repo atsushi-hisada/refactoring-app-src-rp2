@@ -48,7 +48,7 @@ public class MainSystem {
 			switch (menuItem) {
 			case MENU_SELECT_ALL:
 				// 全件表示機能の呼出
-				DBController.find();
+				DBController.findAll();
 				break;
 
 			case MENU_SEARCH_EMP_NAME:
@@ -56,7 +56,7 @@ public class MainSystem {
 				System.out.print("社員名:");
 
 				// 検索機能の呼出
-				DBController.findB();
+				DBController.findByEmpName();
 				break;
 
 			case MENU_SEARCH_DEPT_ID:
@@ -65,7 +65,7 @@ public class MainSystem {
 				String deptIdA = br.readLine();
 
 				// 検索機能の呼出
-				DBController.findC(deptIdA);
+				DBController.findByDeptId(deptIdA);
 				break;
 
 			case MENU_INSERT:
@@ -80,7 +80,7 @@ public class MainSystem {
 				String deptIdB = br.readLine();
 
 				// 登録機能の呼出
-				DBController.insert(emp_name, Seibetsu, birthday, deptIdB);
+				DBController.insertEmployee(Seibetsu, inputMenuNumberStr, birthday, deptIdB);
 				break;
 
 			case MENU_UPDATE:
@@ -88,11 +88,11 @@ public class MainSystem {
 				System.out.print("更新する社員の社員IDを入力してください：");
 
 				// 更新する値を入力する
-				String empId_1 = br.readLine();
-				Integer.parseInt(empId_1);
+				String updateEmpId = br.readLine();
+				Integer.parseInt(updateEmpId);
 
 				// 更新機能の呼出
-				DBController.update(empId_1);
+				DBController.updateEmployee(updateEmpId);
 				System.out.println("社員情報を更新しました");
 
 				break;
@@ -102,7 +102,7 @@ public class MainSystem {
 				System.out.print("削除する社員の社員IDを入力してください：");
 
 				// 削除機能の呼出
-				DBController.delete();
+				DBController.deleteEmployee();
 				break;
 			case MENU_EXIT:
 				System.out.println("システムを終了します。");
