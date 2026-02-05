@@ -55,7 +55,7 @@ public class DBController {
 			System.out.println("社員ID\t社員名\t性別\t生年月日\t部署名");
 			while (resultSet.next()) {
 				System.out.print(resultSet.getString("emp_id") + "\t");
-				System.out.print(resultSet.getString("emp_name") + "\t");
+				System.out.print(resultSet.getString("empName") + "\t");
 
 				int gender = Integer.parseInt(resultSet.getString("gender"));
 				if (gender == 0) {
@@ -129,7 +129,7 @@ public class DBController {
 				System.out.print(resultSet.getString("emp_id"));
 				System.out.print("\t");
 
-				System.out.print(resultSet.getString("emp_name"));
+				System.out.print(resultSet.getString("empName"));
 				System.out.print("\t");
 
 				String genderString = resultSet.getString("gender");
@@ -206,7 +206,7 @@ public class DBController {
 				System.out.print(resultSet.getString("emp_id"));
 				System.out.print("\t");
 
-				System.out.print(resultSet.getString("emp_name"));
+				System.out.print(resultSet.getString("empName"));
 				System.out.print("\t");
 
 				String genderString = resultSet.getString("gender");
@@ -315,7 +315,7 @@ public class DBController {
 			preparedStatement = connection.prepareStatement(ConstantSQL.SQL_UPDATE);
 
 			System.out.print("社員名：");
-			String emp_name = br.readLine();
+			String empName = br.readLine();
 			// 性別を入力
 			System.out.print("性別(0:回答しない, 1:男性, 2:女性, 9:その他):");
 			String gender = br.readLine();
@@ -328,7 +328,7 @@ public class DBController {
 			String deptId = br.readLine();
 
 			// 入力値をバインド
-			preparedStatement.setString(1, emp_name);
+			preparedStatement.setString(1, empName);
 			preparedStatement.setInt(2, Integer.parseInt(gender));
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 			preparedStatement.setObject(3, sdf.parse(birthday), Types.DATE);
