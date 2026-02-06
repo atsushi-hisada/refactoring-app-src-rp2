@@ -11,7 +11,10 @@ import java.sql.Types;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import jp.co.sss.crud.util.ConstantMsg;
 import jp.co.sss.crud.util.ConstantSQL;
+import jp.co.sss.crud.util.ConstantValue.Department;
+import jp.co.sss.crud.util.ConstantValue.Gender;
 
 /**
  * DB操作処理用のクラス
@@ -55,21 +58,11 @@ public class DBController {
 			System.out.println("社員ID\t社員名\t性別\t生年月日\t部署名");
 			while (resultSet.next()) {
 				System.out.print(resultSet.getString("emp_id") + "\t");
-				System.out.print(resultSet.getString("empName") + "\t");
+				System.out.print(resultSet.getString("emp_name") + "\t");
 
-				int gender = Integer.parseInt(resultSet.getString("gender"));
-				if (gender == 0) {
-					System.out.print("回答なし" + "\t");
-				} else if (gender == 1) {
-					System.out.print("男性" + "\t");
-
-				} else if (gender == 2) {
-					System.out.print("女性" + "\t");
-
-				} else if (gender == 9) {
-					System.out.print("その他" + "\t");
-
-				}
+				int genderNumber = Integer.parseInt(resultSet.getString("gender"));
+				Gender gender = Gender.getGender(genderNumber);
+				System.out.print(gender.getGenderLabel() + "\t");
 
 				System.out.print(resultSet.getString("birthday") + "\t");
 				System.out.println(resultSet.getString("dept_name"));
@@ -124,34 +117,20 @@ public class DBController {
 				return;
 			}
 
-			System.out.println("社員ID\t社員名\t性別\t生年月日\t部署名");
+			System.out.println(ConstantMsg.EMPLOYEE_LIST);
+
 			while (resultSet.next()) {
-				System.out.print(resultSet.getString("emp_id"));
-				System.out.print("\t");
+				System.out.print(resultSet.getString("emp_id") + "\t");
 
-				System.out.print(resultSet.getString("empName"));
-				System.out.print("\t");
+				System.out.print(resultSet.getString("emp_name") + "\t");
 
-				String genderString = resultSet.getString("gender");
-				int gender = Integer.parseInt(genderString);
-				if (gender == 0) {
-					System.out.print("回答なし");
-				} else if (gender == 1) {
-					System.out.print("男性");
+				int genderNumber = Integer.parseInt(resultSet.getString("gender") + "\t");
+				Gender gender = Gender.getGender(genderNumber);
+				System.out.print(gender.getGenderLabel() + "\t");
 
-				} else if (gender == 2) {
-					System.out.print("女性");
+				System.out.print(resultSet.getString("birthday") + "\t");
 
-				} else if (gender == 9) {
-					System.out.print("その他");
-
-				}
-
-				System.out.print("\t");
-				System.out.print(resultSet.getString("birthday"));
-				System.out.print("\t");
-
-				System.out.println(resultSet.getString("dept_name"));
+				System.out.println(resultSet.getString("dept_name") + "\t");
 			}
 
 			System.out.println("");
@@ -203,41 +182,21 @@ public class DBController {
 
 			System.out.println("社員ID\t社員名\t性別\t生年月日\t部署名");
 			while (resultSet.next()) {
-				System.out.print(resultSet.getString("emp_id"));
-				System.out.print("\t");
+				System.out.print(resultSet.getString("emp_id") + "\t");
 
-				System.out.print(resultSet.getString("empName"));
-				System.out.print("\t");
+				System.out.print(resultSet.getString("emp_name") + "\t");
 
-				String genderString = resultSet.getString("gender");
-				int gender = Integer.parseInt(genderString);
-				if (gender == 0) {
-					System.out.print("回答なし");
-				} else if (gender == 1) {
-					System.out.print("男性");
+				int genderNumber = Integer.parseInt(resultSet.getString("gender"));
+				Gender gender = Gender.getGender(genderNumber);
+				System.out.print(gender.getGenderLabel() + "\t");
 
-				} else if (gender == 2) {
-					System.out.print("女性");
+				System.out.print(resultSet.getString("birthday") + "\t");
 
-				} else if (gender == 9) {
-					System.out.print("その他");
+				int deptNumber = Integer.parseInt(resultSet.getString("dept_id"));
+				Department dept = Department.getDept(deptNumber);
+				System.out.print(dept.getDeptLabel());
+				System.out.println("");
 
-				}
-
-				System.out.print("\t");
-				System.out.print(resultSet.getString("birthday"));
-				System.out.print("\t");
-
-				String deptIdString = resultSet.getString("dept_id");
-				int deptId2 = Integer.parseInt(deptIdString);
-				if (deptId2 == 1) {
-					System.out.println("営業部");
-				} else if (deptId2 == 2) {
-					System.out.println("経理部");
-				} else if (gender == 3) {
-					System.out.println("総務部");
-
-				}
 			}
 
 			System.out.println("");
