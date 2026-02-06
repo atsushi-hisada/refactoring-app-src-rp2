@@ -64,38 +64,6 @@ public class ConstantValue {
 		}
 	}
 
-	// 部署
-	public static enum Department {
-		DEPT_SALES(1, "営業部"), DEPT_ACCOUNTING(2, "経理部"), DEPT_GENERAL_AFFAIRS(3, "総務部");
-
-		private int deptNumber;
-		private String deptLabel;
-
-		private Department(int deptNumber, String deptLabel) {
-			this.deptNumber = deptNumber;
-			this.deptLabel = deptLabel;
-		}
-
-		public int getDeptNumber() {
-			return deptNumber;
-		}
-
-		public String getDeptLabel() {
-			return deptLabel;
-		}
-
-		// 引数と一致するインデックスを持つ定数を返す
-		public static Department getDept(int inputDeptNumber) {
-			for (Department dept : Department.values()) {
-				if (dept.getDeptNumber() == inputDeptNumber) {
-					return dept;
-				}
-			}
-			// 引数と一致する定数がなかった場合
-			throw new IllegalArgumentException();
-		}
-	}
-
 	// employeeテーブルのカラム
 	public static final String COL_EMP_ID = "emp_id";
 	public static final String COL_EMP_NAME = "emp_name";
