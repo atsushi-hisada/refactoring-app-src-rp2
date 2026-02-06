@@ -7,6 +7,14 @@ public class Department {
 	// 部署名
 	private String deptName;
 
+	public Department() {
+	}
+
+	public Department(Integer deptId) {
+		// TODO 自動生成されたコンストラクター・スタブ
+		this.deptId = deptId;
+	}
+
 	public Integer getDeptId() {
 		return deptId;
 	}

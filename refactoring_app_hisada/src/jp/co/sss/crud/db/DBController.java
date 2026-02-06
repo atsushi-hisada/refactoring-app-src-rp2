@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import jp.co.sss.crud.dto.Department;
 import jp.co.sss.crud.dto.Employee;
@@ -240,7 +241,7 @@ public class DBController {
 	 * @throws IOException             入力処理でエラーが発生した場合に送出
 	 * @throws ParseException 
 	 */
-	public static void insertEmployee(String empName, String gender, String birthday, String deptId)
+	public static void insertEmployee(String empName, String genderString, String bitrhdayString, String deptIdString)
 			throws ClassNotFoundException, SQLException, IOException, ParseException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -250,13 +251,20 @@ public class DBController {
 
 			// ステートメントを作成
 			preparedStatement = connection.prepareStatement(ConstantSQL.SQL_INSERT);
+			// Dtoに格納できるようにそれぞれを型変換
+			Gender gender = Gender.getGender(Integer.parseInt(genderString));
+			SimpleDateFormat sdf = new SimpleDateFormat(ConstantValue.DATE_FORMAT);
+			Date bitrhday = sdf.parse(bitrhdayString);
+			Integer deptId = Integer.parseInt(deptIdString);
+			Department department = new Department(deptId);
+			// Dtoに格納
+			Employee empDto = new Employee(empName, gender, bitrhday, department);
 
 			// 入力値をバインド
-			preparedStatement.setString(ConstantValue.SAVE_INDEX_EMP_NAME, empName);
-			preparedStatement.setInt(ConstantValue.SAVE_INDEX_GENDER, Integer.parseInt(gender));
-			SimpleDateFormat sdf = new SimpleDateFormat(ConstantValue.DATE_FORMAT);
-			preparedStatement.setObject(ConstantValue.SAVE_INDEX_BIRTHDAY, sdf.parse(birthday), Types.DATE);
-			preparedStatement.setInt(ConstantValue.SAVE_INDEX_DEPT_ID, Integer.parseInt(deptId));
+			preparedStatement.setString(ConstantValue.SAVE_INDEX_EMP_NAME, empDto.getEmpName());
+			preparedStatement.setInt(ConstantValue.SAVE_INDEX_GENDER, empDto.getGender().getGenderNumber());
+			preparedStatement.setObject(ConstantValue.SAVE_INDEX_BIRTHDAY, empDto.getBirthday(), Types.DATE);
+			preparedStatement.setInt(ConstantValue.SAVE_INDEX_DEPT_ID, empDto.getDepartment().getDeptId());
 
 			// SQL文を実行
 			preparedStatement.executeUpdate();
@@ -278,7 +286,7 @@ public class DBController {
 	 * @throws IOException             入力処理でエラーが発生した場合に送出
 	 * @throws ParseException 
 	 */
-	public static void updateEmployee(String empId)
+	public static void updateEmployee(String empIdString)
 			throws ClassNotFoundException, SQLException, IOException, ParseException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -291,26 +299,34 @@ public class DBController {
 			// ステートメントの作成
 			preparedStatement = connection.prepareStatement(ConstantSQL.SQL_UPDATE);
 
+			Integer empId = Integer.parseInt(empIdString);
+			//名前を入力
 			System.out.print(ConstantMsg.INPUT_EMP_NAME);
 			String empName = br.readLine();
 			// 性別を入力
 			System.out.print(ConstantMsg.INPUT_GENDER);
-			String gender = br.readLine();
+			String genderString = br.readLine();
+			Gender gender = Gender.getGender(Integer.parseInt(genderString));
 			// 誕生日を入力
 			System.out.print(ConstantMsg.INPUT_BIRTHDAY);
-			String birthday = br.readLine();
-
+			String bitrhdayString = br.readLine();
+			// フォーマットを作成
+			SimpleDateFormat sdf = new SimpleDateFormat(ConstantValue.DATE_FORMAT);
+			Date bitrhday = sdf.parse(bitrhdayString);
 			// 部署IDを入力
 			System.out.print(ConstantMsg.INPUT_DEPT_ID);
-			String deptId = br.readLine();
+			String deptIdString = br.readLine();
+			Integer deptId = Integer.parseInt(deptIdString);
+			Department department = new Department(deptId);
+			// Dtoに格納
+			Employee empDto = new Employee(empId, empName, gender, bitrhday, department);
 
 			// 入力値をバインド
-			preparedStatement.setString(ConstantValue.SAVE_INDEX_EMP_NAME, empName);
-			preparedStatement.setInt(ConstantValue.SAVE_INDEX_GENDER, Integer.parseInt(gender));
-			SimpleDateFormat sdf = new SimpleDateFormat(ConstantValue.DATE_FORMAT);
-			preparedStatement.setObject(ConstantValue.SAVE_INDEX_BIRTHDAY, sdf.parse(birthday), Types.DATE);
-			preparedStatement.setInt(ConstantValue.SAVE_INDEX_DEPT_ID, Integer.parseInt(deptId));
-			preparedStatement.setInt(ConstantValue.SAVE_INDEX_EMP_ID, Integer.parseInt(empId));
+			preparedStatement.setString(ConstantValue.SAVE_INDEX_EMP_NAME, empDto.getEmpName());
+			preparedStatement.setInt(ConstantValue.SAVE_INDEX_GENDER, empDto.getGender().getGenderNumber());
+			preparedStatement.setObject(ConstantValue.SAVE_INDEX_BIRTHDAY, empDto.getBirthday(), Types.DATE);
+			preparedStatement.setInt(ConstantValue.SAVE_INDEX_DEPT_ID, empDto.getDepartment().getDeptId());
+			preparedStatement.setInt(ConstantValue.SAVE_INDEX_EMP_ID, empDto.getEmpId());
 
 			// SQL文の実行(失敗時は戻り値0)
 			preparedStatement.executeUpdate();

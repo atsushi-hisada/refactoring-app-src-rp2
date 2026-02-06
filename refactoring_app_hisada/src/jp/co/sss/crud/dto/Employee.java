@@ -22,6 +22,24 @@ public class Employee {
 	// 所属部署
 	private Department department;
 
+	public Employee() {
+	}
+
+	public Employee(String empName, Gender gender, Date birthday, Department department) {
+		this.empName = empName;
+		this.gender = gender;
+		this.birthday = birthday;
+		this.department = department;
+	}
+
+	public Employee(Integer empId, String empName, Gender gender, Date birthday, Department department) {
+		this.empId = empId;
+		this.empName = empName;
+		this.gender = gender;
+		this.birthday = birthday;
+		this.department = department;
+	}
+
 	public Integer getEmpId() {
 		return empId;
 	}
