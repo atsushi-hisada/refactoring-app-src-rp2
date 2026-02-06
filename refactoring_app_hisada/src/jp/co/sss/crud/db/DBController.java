@@ -11,6 +11,8 @@ import java.sql.Types;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import jp.co.sss.crud.dto.Department;
+import jp.co.sss.crud.dto.Employee;
 import jp.co.sss.crud.util.ConstantMsg;
 import jp.co.sss.crud.util.ConstantSQL;
 import jp.co.sss.crud.util.ConstantValue;
@@ -57,20 +59,27 @@ public class DBController {
 			// レコードを出力
 			System.out.println(ConstantMsg.EMPLOYEE_LIST);
 			while (resultSet.next()) {
-				System.out.print(resultSet.getString(ConstantValue.COL_EMP_ID) + "\t");
-				System.out.print(resultSet.getString(ConstantValue.COL_EMP_NAME) + "\t");
-
-				int genderNumber = Integer.parseInt(resultSet.getString(ConstantValue.COL_GENDER));
-				Gender gender = Gender.getGender(genderNumber);
-				System.out.print(gender.getGenderLabel() + "\t");
-
-				System.out.print(resultSet.getString(ConstantValue.COL_BIRTHDAY) + "\t");
-
-				System.out.print(resultSet.getString(ConstantValue.COL_DEPT_NAME));
+				// DTOを作成し、セットする
+				Employee empDto = new Employee();
+				empDto.setEmpId(resultSet.getInt(ConstantValue.COL_EMP_ID));
+				empDto.setEmpName(resultSet.getString(ConstantValue.COL_EMP_NAME));
+				empDto.setGender(Gender.getGender(resultSet.getInt(ConstantValue.COL_GENDER)));
+				String bitrhdayString = resultSet.getString(ConstantValue.COL_BIRTHDAY);
+				// フォーマットを作成
+				SimpleDateFormat sdf = new SimpleDateFormat(ConstantValue.DATE_FORMAT);
+				empDto.setBirthday(sdf.parse(bitrhdayString));
+				Department department = new Department();
+				department.setDeptName(resultSet.getString(ConstantValue.COL_DEPT_NAME));
+				empDto.setDepartment(department);
+				// toStringで出力
+				System.out.print(empDto);
 				System.out.println("");
 			}
 
 			System.out.println("");
+		} catch (ParseException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
 		} finally {
 			// ResultSetをクローズ
 			DBManager.close(resultSet);
@@ -87,8 +96,9 @@ public class DBController {
 	 * @throws ClassNotFoundException ドライバクラスが不在の場合に送出
 	 * @throws SQLException           DB処理でエラーが発生した場合に送出
 	 * @throws IOException            入力処理でエラーが発生した場合に送出
+	 * @throws ParseException 
 	 */
-	public static void findByEmpName() throws ClassNotFoundException, SQLException, IOException {
+	public static void findByEmpName() throws ClassNotFoundException, SQLException, IOException, ParseException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		// 検索ワード
@@ -122,17 +132,20 @@ public class DBController {
 			System.out.println(ConstantMsg.EMPLOYEE_LIST);
 
 			while (resultSet.next()) {
-				System.out.print(resultSet.getString(ConstantValue.COL_EMP_ID) + "\t");
-
-				System.out.print(resultSet.getString(ConstantValue.COL_EMP_NAME) + "\t");
-
-				int genderNumber = Integer.parseInt(resultSet.getString(ConstantValue.COL_GENDER));
-				Gender gender = Gender.getGender(genderNumber);
-				System.out.print(gender.getGenderLabel() + "\t");
-
-				System.out.print(resultSet.getString(ConstantValue.COL_BIRTHDAY) + "\t");
-
-				System.out.print(resultSet.getString(ConstantValue.COL_DEPT_NAME));
+				// DTOを作成し、セットする
+				Employee empDto = new Employee();
+				empDto.setEmpId(resultSet.getInt(ConstantValue.COL_EMP_ID));
+				empDto.setEmpName(resultSet.getString(ConstantValue.COL_EMP_NAME));
+				empDto.setGender(Gender.getGender(resultSet.getInt(ConstantValue.COL_GENDER)));
+				String bitrhdayString = resultSet.getString(ConstantValue.COL_BIRTHDAY);
+				// フォーマットを作成
+				SimpleDateFormat sdf = new SimpleDateFormat(ConstantValue.DATE_FORMAT);
+				empDto.setBirthday(sdf.parse(bitrhdayString));
+				Department department = new Department();
+				department.setDeptName(resultSet.getString(ConstantValue.COL_DEPT_NAME));
+				empDto.setDepartment(department);
+				// toStringで出力
+				System.out.print(empDto);
 				System.out.println("");
 			}
 
@@ -154,8 +167,10 @@ public class DBController {
 	 * @throws ClassNotFoundException ドライバクラスが不在の場合に送出
 	 * @throws SQLException           DB処理でエラーが発生した場合に送出
 	 * @throws IOException            入力処理でエラーが発生した場合に送出
+	 * @throws ParseException 
 	 */
-	public static void findByDeptId(String deptId) throws ClassNotFoundException, SQLException, IOException {
+	public static void findByDeptId(String deptId)
+			throws ClassNotFoundException, SQLException, IOException, ParseException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -185,17 +200,20 @@ public class DBController {
 
 			System.out.println(ConstantMsg.EMPLOYEE_LIST);
 			while (resultSet.next()) {
-				System.out.print(resultSet.getString(ConstantValue.COL_EMP_ID) + "\t");
-
-				System.out.print(resultSet.getString(ConstantValue.COL_EMP_NAME) + "\t");
-
-				int genderNumber = Integer.parseInt(resultSet.getString(ConstantValue.COL_GENDER));
-				Gender gender = Gender.getGender(genderNumber);
-				System.out.print(gender.getGenderLabel() + "\t");
-
-				System.out.print(resultSet.getString(ConstantValue.COL_BIRTHDAY) + "\t");
-
-				System.out.print(resultSet.getString(ConstantValue.COL_DEPT_NAME));
+				// DTOを作成し、セットする
+				Employee empDto = new Employee();
+				empDto.setEmpId(resultSet.getInt(ConstantValue.COL_EMP_ID));
+				empDto.setEmpName(resultSet.getString(ConstantValue.COL_EMP_NAME));
+				empDto.setGender(Gender.getGender(resultSet.getInt(ConstantValue.COL_GENDER)));
+				String bitrhdayString = resultSet.getString(ConstantValue.COL_BIRTHDAY);
+				// フォーマットを作成
+				SimpleDateFormat sdf = new SimpleDateFormat(ConstantValue.DATE_FORMAT);
+				empDto.setBirthday(sdf.parse(bitrhdayString));
+				Department department = new Department();
+				department.setDeptName(resultSet.getString(ConstantValue.COL_DEPT_NAME));
+				empDto.setDepartment(department);
+				// toStringで出力
+				System.out.print(empDto);
 				System.out.println("");
 			}
 

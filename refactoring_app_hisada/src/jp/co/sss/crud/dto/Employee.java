@@ -1,7 +1,9 @@
 package jp.co.sss.crud.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import jp.co.sss.crud.util.ConstantValue;
 import jp.co.sss.crud.util.ConstantValue.Gender;
 
 /**
@@ -58,5 +60,16 @@ public class Employee {
 
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+
+	// レコードを表示
+	@Override
+	public String toString() {
+		SimpleDateFormat sdf = new SimpleDateFormat(ConstantValue.DATE_FORMAT);
+		return this.getEmpId() + "\t" +
+				this.getEmpName() + "\t" +
+				this.getGender().getGenderLabel() + "\t" +
+				sdf.format(this.getBirthday()) + "\t" +
+				this.getDepartment().getDeptName();
 	}
 }
