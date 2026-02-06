@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 
 import jp.co.sss.crud.util.ConstantMsg;
 import jp.co.sss.crud.util.ConstantSQL;
-import jp.co.sss.crud.util.ConstantValue.Department;
+import jp.co.sss.crud.util.ConstantValue;
 import jp.co.sss.crud.util.ConstantValue.Gender;
 
 /**
@@ -57,15 +57,17 @@ public class DBController {
 			// レコードを出力
 			System.out.println(ConstantMsg.EMPLOYEE_LIST);
 			while (resultSet.next()) {
-				System.out.print(resultSet.getString("emp_id") + "\t");
-				System.out.print(resultSet.getString("emp_name") + "\t");
+				System.out.print(resultSet.getString(ConstantValue.COL_EMP_ID) + "\t");
+				System.out.print(resultSet.getString(ConstantValue.COL_EMP_NAME) + "\t");
 
-				int genderNumber = Integer.parseInt(resultSet.getString("gender"));
+				int genderNumber = Integer.parseInt(resultSet.getString(ConstantValue.COL_GENDER));
 				Gender gender = Gender.getGender(genderNumber);
 				System.out.print(gender.getGenderLabel() + "\t");
 
-				System.out.print(resultSet.getString("birthday") + "\t");
-				System.out.println(resultSet.getString("dept_name"));
+				System.out.print(resultSet.getString(ConstantValue.COL_BIRTHDAY) + "\t");
+
+				System.out.print(resultSet.getString(ConstantValue.COL_DEPT_NAME));
+				System.out.println("");
 			}
 
 			System.out.println("");
@@ -108,7 +110,7 @@ public class DBController {
 			preparedStatement = connection.prepareStatement(sql.toString());
 
 			// 検索条件となる値をバインド
-			preparedStatement.setString(1, "%" + searchWord + "%");
+			preparedStatement.setString(ConstantValue.FIND_INDEX_EMP_NAME, "%" + searchWord + "%");
 
 			// SQL文を実行
 			resultSet = preparedStatement.executeQuery();
@@ -120,17 +122,18 @@ public class DBController {
 			System.out.println(ConstantMsg.EMPLOYEE_LIST);
 
 			while (resultSet.next()) {
-				System.out.print(resultSet.getString("emp_id") + "\t");
+				System.out.print(resultSet.getString(ConstantValue.COL_EMP_ID) + "\t");
 
-				System.out.print(resultSet.getString("emp_name") + "\t");
+				System.out.print(resultSet.getString(ConstantValue.COL_EMP_NAME) + "\t");
 
-				int genderNumber = Integer.parseInt(resultSet.getString("gender") + "\t");
+				int genderNumber = Integer.parseInt(resultSet.getString(ConstantValue.COL_GENDER));
 				Gender gender = Gender.getGender(genderNumber);
 				System.out.print(gender.getGenderLabel() + "\t");
 
-				System.out.print(resultSet.getString("birthday") + "\t");
+				System.out.print(resultSet.getString(ConstantValue.COL_BIRTHDAY) + "\t");
 
-				System.out.println(resultSet.getString("dept_name") + "\t");
+				System.out.print(resultSet.getString(ConstantValue.COL_DEPT_NAME));
+				System.out.println("");
 			}
 
 			System.out.println("");
@@ -170,7 +173,7 @@ public class DBController {
 			preparedStatement = connection.prepareStatement(sql.toString());
 
 			// 検索条件となる値をバインド
-			preparedStatement.setInt(1, Integer.parseInt(deptId));
+			preparedStatement.setInt(ConstantValue.FIND_INDEX_DEPT_ID, Integer.parseInt(deptId));
 
 			// SQL文を実行
 			resultSet = preparedStatement.executeQuery();
@@ -182,21 +185,18 @@ public class DBController {
 
 			System.out.println(ConstantMsg.EMPLOYEE_LIST);
 			while (resultSet.next()) {
-				System.out.print(resultSet.getString("emp_id") + "\t");
+				System.out.print(resultSet.getString(ConstantValue.COL_EMP_ID) + "\t");
 
-				System.out.print(resultSet.getString("emp_name") + "\t");
+				System.out.print(resultSet.getString(ConstantValue.COL_EMP_NAME) + "\t");
 
-				int genderNumber = Integer.parseInt(resultSet.getString("gender"));
+				int genderNumber = Integer.parseInt(resultSet.getString(ConstantValue.COL_GENDER));
 				Gender gender = Gender.getGender(genderNumber);
 				System.out.print(gender.getGenderLabel() + "\t");
 
-				System.out.print(resultSet.getString("birthday") + "\t");
+				System.out.print(resultSet.getString(ConstantValue.COL_BIRTHDAY) + "\t");
 
-				int deptNumber = Integer.parseInt(resultSet.getString("dept_id"));
-				Department dept = Department.getDept(deptNumber);
-				System.out.print(dept.getDeptLabel());
+				System.out.print(resultSet.getString(ConstantValue.COL_DEPT_NAME));
 				System.out.println("");
-
 			}
 
 			System.out.println("");
@@ -234,11 +234,11 @@ public class DBController {
 			preparedStatement = connection.prepareStatement(ConstantSQL.SQL_INSERT);
 
 			// 入力値をバインド
-			preparedStatement.setString(1, empName);
-			preparedStatement.setInt(2, Integer.parseInt(gender));
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-			preparedStatement.setObject(3, sdf.parse(birthday), Types.DATE);
-			preparedStatement.setInt(4, Integer.parseInt(deptId));
+			preparedStatement.setString(ConstantValue.SAVE_INDEX_EMP_NAME, empName);
+			preparedStatement.setInt(ConstantValue.SAVE_INDEX_GENDER, Integer.parseInt(gender));
+			SimpleDateFormat sdf = new SimpleDateFormat(ConstantValue.DATE_FORMAT);
+			preparedStatement.setObject(ConstantValue.SAVE_INDEX_BIRTHDAY, sdf.parse(birthday), Types.DATE);
+			preparedStatement.setInt(ConstantValue.SAVE_INDEX_DEPT_ID, Integer.parseInt(deptId));
 
 			// SQL文を実行
 			preparedStatement.executeUpdate();
@@ -287,12 +287,12 @@ public class DBController {
 			String deptId = br.readLine();
 
 			// 入力値をバインド
-			preparedStatement.setString(1, empName);
-			preparedStatement.setInt(2, Integer.parseInt(gender));
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-			preparedStatement.setObject(3, sdf.parse(birthday), Types.DATE);
-			preparedStatement.setInt(4, Integer.parseInt(deptId));
-			preparedStatement.setInt(5, Integer.parseInt(empId));
+			preparedStatement.setString(ConstantValue.SAVE_INDEX_EMP_NAME, empName);
+			preparedStatement.setInt(ConstantValue.SAVE_INDEX_GENDER, Integer.parseInt(gender));
+			SimpleDateFormat sdf = new SimpleDateFormat(ConstantValue.DATE_FORMAT);
+			preparedStatement.setObject(ConstantValue.SAVE_INDEX_BIRTHDAY, sdf.parse(birthday), Types.DATE);
+			preparedStatement.setInt(ConstantValue.SAVE_INDEX_DEPT_ID, Integer.parseInt(deptId));
+			preparedStatement.setInt(ConstantValue.SAVE_INDEX_EMP_ID, Integer.parseInt(empId));
 
 			// SQL文の実行(失敗時は戻り値0)
 			preparedStatement.executeUpdate();
@@ -326,7 +326,7 @@ public class DBController {
 			preparedStatement = connection.prepareStatement(ConstantSQL.SQL_DELETE);
 
 			// 社員IDをバインド
-			preparedStatement.setInt(1, Integer.parseInt(empId));
+			preparedStatement.setInt(ConstantValue.DELETE_INDEX_EMP_ID, Integer.parseInt(empId));
 
 			// SQL文の実行(失敗時は戻り値0)
 			preparedStatement.executeUpdate();

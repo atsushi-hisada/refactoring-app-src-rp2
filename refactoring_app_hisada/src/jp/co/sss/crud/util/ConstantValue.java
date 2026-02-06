@@ -7,13 +7,8 @@ public class ConstantValue {
 
 	// メニュー表示
 	public static enum MenuItem {
-		MENU_SELECT_ALL(1), 
-		MENU_SEARCH_EMP_NAME(2), 
-		MENU_SEARCH_DEPT_ID(3), 
-		MENU_INSERT(4),
-		MENU_UPDATE(5), 
-		MENU_DELETE(6),
-		MENU_EXIT(7);
+		MENU_SELECT_ALL(1), MENU_SEARCH_EMP_NAME(2), MENU_SEARCH_DEPT_ID(3), MENU_INSERT(4), MENU_UPDATE(
+				5), MENU_DELETE(6), MENU_EXIT(7);
 
 		private int menuNumber;
 
@@ -39,10 +34,7 @@ public class ConstantValue {
 
 	// 性別
 	public static enum Gender {
-		GENDER_NO_ANSWER(0, "回答なし"), 
-		GENDER_MAN(1, "男性"), 
-		GENDER_WOMAN(2, "女性"), 
-		GENDER_OTHERS(9, "その他");
+		GENDER_NO_ANSWER(0, "回答なし"), GENDER_MAN(1, "男性"), GENDER_WOMAN(2, "女性"), GENDER_OTHERS(9, "その他");
 
 		private int genderNumber;
 		private String genderLabel;
@@ -74,9 +66,7 @@ public class ConstantValue {
 
 	// 部署
 	public static enum Department {
-		DEPT_SALES(1, "営業部"), 
-		DEPT_ACCOUNTING(2, "経理部"), 
-		DEPT_GENERAL_AFFAIRS(3, "総務部");
+		DEPT_SALES(1, "営業部"), DEPT_ACCOUNTING(2, "経理部"), DEPT_GENERAL_AFFAIRS(3, "総務部");
 
 		private int deptNumber;
 		private String deptLabel;
@@ -105,4 +95,32 @@ public class ConstantValue {
 			throw new IllegalArgumentException();
 		}
 	}
+
+	// employeeテーブルのカラム
+	public static final String COL_EMP_ID = "emp_id";
+	public static final String COL_EMP_NAME = "emp_name";
+	public static final String COL_GENDER = "gender";
+	public static final String COL_BIRTHDAY = "birthday";
+	public static final String COL_DEPT_ID = "dept_id";
+	public static final String COL_DEPT_NAME = "dept_name";
+
+	// 社員名検索のインデックス
+	public static final int FIND_INDEX_EMP_NAME = 1;
+
+	// 部署名検索のインデックス
+	public static final int FIND_INDEX_DEPT_ID = 1;
+
+	// 登録機能および更新機能のインデックス
+	public static final int SAVE_INDEX_EMP_NAME = 1;
+	public static final int SAVE_INDEX_GENDER = 2;
+	public static final int SAVE_INDEX_BIRTHDAY = 3;
+	public static final int SAVE_INDEX_DEPT_ID = 4;
+	public static final int SAVE_INDEX_EMP_ID = 5;
+
+	// 削除機能のインデックス
+	public static final int DELETE_INDEX_EMP_ID = 1;
+
+	// 日付のフォーマット
+	public static final String DATE_FORMAT = "yyyy/MM/dd";
+
 }

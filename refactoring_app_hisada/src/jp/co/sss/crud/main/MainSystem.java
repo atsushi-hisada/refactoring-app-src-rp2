@@ -63,25 +63,25 @@ public class MainSystem {
 			case MENU_SEARCH_DEPT_ID:
 				// 検索する部署IDを入力
 				System.out.print(ConstantMsg.INPUT_DEPT_ID);
-				String deptId = br.readLine();
+				String inputDeptId = br.readLine();
 
 				// 検索機能の呼出
-				DBController.findByDeptId(deptId);
+				DBController.findByDeptId(inputDeptId);
 				break;
 
 			case MENU_INSERT:
 				// 登録する値を入力
-				System.out.print(ConstantMsg.INPUT_MENU_NUMBER);
-				String empName = br.readLine();
+				System.out.print(ConstantMsg.INPUT_EMP_NAME);
+				String inputEmpName = br.readLine();
 				System.out.print(ConstantMsg.INPUT_GENDER);
-				String gender = br.readLine();
+				String inputGender = br.readLine();
 				System.out.print(ConstantMsg.INPUT_BIRTHDAY);
-				String birthday = br.readLine();
+				String inputBirthday = br.readLine();
 				System.out.print(ConstantMsg.INPUT_DEPT_ID);
-				deptId = br.readLine();
+				inputDeptId = br.readLine();
 
 				// 登録機能の呼出
-				DBController.insertEmployee(empName, gender, birthday, deptId);
+				DBController.insertEmployee(inputEmpName, inputGender, inputBirthday, inputDeptId);
 				break;
 
 			case MENU_UPDATE:
