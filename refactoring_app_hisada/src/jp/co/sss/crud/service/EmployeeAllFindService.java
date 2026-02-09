@@ -10,14 +10,14 @@ import jp.co.sss.crud.exception.SystemErrorException;
 /**
  * 全ての社員情報を検索を表示するクラス
  */
-public class EmployeeAllFindService {
+public class EmployeeAllFindService implements IEmployeeService {
 
 	/**
 	 * 全ての社員情報を検索を表示
 	 *
 	 * @throws SystemErrorException 継続不能なエラー
 	 */
-	public static void execute() throws SystemErrorException {
+	public void execute() throws SystemErrorException {
 
 		List<Employee> employeeList = new ArrayList<Employee>();
 		// 全件検索した情報をリストへ

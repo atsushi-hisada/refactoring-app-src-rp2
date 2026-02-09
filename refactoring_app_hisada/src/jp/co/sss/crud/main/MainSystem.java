@@ -4,12 +4,7 @@ import jp.co.sss.crud.exception.IllegalInputException;
 import jp.co.sss.crud.exception.SystemErrorException;
 import jp.co.sss.crud.io.MenuNoReader;
 import jp.co.sss.crud.service.ConsoleWriter;
-import jp.co.sss.crud.service.EmployeeAllFindService;
-import jp.co.sss.crud.service.EmployeeDeleteService;
-import jp.co.sss.crud.service.EmployeeFindByDeptIdService;
-import jp.co.sss.crud.service.EmployeeFindByEmpNameService;
-import jp.co.sss.crud.service.EmployeeRegisterService;
-import jp.co.sss.crud.service.EmployeeUpdateService;
+import jp.co.sss.crud.service.IEmployeeService;
 import jp.co.sss.crud.util.ConstantMsg;
 import jp.co.sss.crud.util.ConstantValue.MenuItem;
 
@@ -36,42 +31,14 @@ public class MainSystem {
 				// メニュー番号の入力
 				int inputMenuNumber = (int) menuNoReader.input();
 				menuItem = MenuItem.getByMenuNumber(inputMenuNumber);
-
-				// 機能の呼出
-				switch (menuItem) {
-				case MENU_SELECT_ALL:
-					// 全件表示機能の呼出
-					EmployeeAllFindService.execute();
-					break;
-
-				case MENU_SEARCH_EMP_NAME:
-					// 検索機能の呼出
-					EmployeeFindByEmpNameService.execute();
-					break;
-
-				case MENU_SEARCH_DEPT_ID:
-					// 検索機能の呼出
-					EmployeeFindByDeptIdService.execute();
-					break;
-
-				case MENU_INSERT:
-					// 登録機能の呼出
-					EmployeeRegisterService.execute();
-					break;
-
-				case MENU_UPDATE:
-					// 更新機能の呼出
-					EmployeeUpdateService.execute();
-					break;
-
-				case MENU_DELETE:
-					// 削除機能の呼出
-					EmployeeDeleteService.execute();
-					break;
-
-				case MENU_EXIT:
+				// サービスのインスタンスを生成
+				IEmployeeService service = IEmployeeService.getInstanceByMenuNo(menuItem);
+				// 何も入っていない場合終了する
+				if (service == null) {
 					break;
 				}
+				// サービスの実行
+				service.execute();
 
 			} catch (SystemErrorException e) {
 				System.out.println(e.getMessage());

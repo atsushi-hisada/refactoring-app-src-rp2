@@ -16,7 +16,7 @@ import jp.co.sss.crud.util.ConstantValue.Gender;
 /**
  * 新規登録するクラス
  */
-public class EmployeeRegisterService {
+public class EmployeeRegisterService implements IEmployeeService {
 
 	/**
 	 * 新規登録
@@ -24,7 +24,7 @@ public class EmployeeRegisterService {
 	 * @throws SystemErrorException 継続不能なエラー
 	 * @throws IllegalInputException 不正入力エラー
 	 */
-	public static void execute() throws SystemErrorException, IllegalInputException {
+	public void execute() throws SystemErrorException, IllegalInputException {
 
 		// インスタンスを生成
 		EmployeeNameReader employeeNameReader = new EmployeeNameReader();

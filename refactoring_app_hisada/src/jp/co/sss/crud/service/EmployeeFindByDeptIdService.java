@@ -13,7 +13,7 @@ import jp.co.sss.crud.util.ConstantMsg;
 /**
  * 
  */
-public class EmployeeFindByDeptIdService {
+public class EmployeeFindByDeptIdService implements IEmployeeService {
 
 	/**
 	 * 部署IDに該当する社員情報を検索
@@ -21,7 +21,7 @@ public class EmployeeFindByDeptIdService {
 	 * @throws SystemErrorException 継続不能なエラー
 	 * @throws IllegalInputException 不正入力エラー
 	 */
-	public static void execute()
+	public void execute()
 			throws SystemErrorException, IllegalInputException {
 
 		List<Employee> employeeList = new ArrayList<Employee>();

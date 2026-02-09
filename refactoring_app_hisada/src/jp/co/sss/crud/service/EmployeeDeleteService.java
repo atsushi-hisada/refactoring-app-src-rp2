@@ -9,7 +9,7 @@ import jp.co.sss.crud.util.ConstantMsg;
 /**
  * 社員情報を削除するクラス
  */
-public class EmployeeDeleteService {
+public class EmployeeDeleteService implements IEmployeeService {
 
 	/**
 	 * 社員情報を削除
@@ -17,7 +17,7 @@ public class EmployeeDeleteService {
 	 * @throws SystemErrorException 継続不能なエラー
 	 * @throws IllegalInputException 不正入力エラー
 	 */
-	public static void execute()
+	public void execute()
 			throws SystemErrorException, IllegalInputException {
 
 		System.out.print(ConstantMsg.DELETE_INPUT_EMP_ID);
