@@ -20,8 +20,9 @@ public class EmployeeAllFindService implements IEmployeeService {
 	public void execute() throws SystemErrorException {
 
 		List<Employee> employeeList = new ArrayList<Employee>();
+		EmployeeDAO dao = new EmployeeDAO();
 		// 全件検索した情報をリストへ
-		employeeList = EmployeeDAO.findAll();
+		employeeList = dao.findAll();
 		// 社員情報を表示
 		ConsoleWriter.showEmployees(employeeList);
 	}

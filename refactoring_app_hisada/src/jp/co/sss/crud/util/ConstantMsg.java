@@ -34,11 +34,11 @@ public class ConstantMsg {
 	// 更新機能
 	public static final String UPDATE_INPUT_EMP_ID = "更新する社員の社員IDを入力してください：";
 	public static final String UPDATE_COMPLETE = "社員情報を更新しました";
-
+	public static final String UPDATE_NOT_FOUND = "対象者がいませんでした";
 	// 削除機能
 	public static final String DELETE_INPUT_EMP_ID = "削除する社員の社員IDを入力してください：";
 	public static final String DELETE_COMPLETE = "社員情報を削除しました";
-
+	public static final String DELETE_NOT_FOUND = "対象者がいませんでした";
 	public static final String EXIT = "システムを終了します。";
 
 	public static final String NOT_FOUND = "該当者はいませんでした";

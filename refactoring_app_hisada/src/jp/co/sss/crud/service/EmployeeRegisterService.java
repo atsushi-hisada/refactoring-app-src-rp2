@@ -44,8 +44,8 @@ public class EmployeeRegisterService implements IEmployeeService {
 
 		// Dtoに格納
 		Employee empDto = new Employee(inputEmpName, inputGender, inputBirthday, department);
-
+		EmployeeDAO dao = new EmployeeDAO();
 		// 入力した情報を登録
-		EmployeeDAO.insertEmployee(empDto);
+		dao.insert(empDto);
 	}
 }

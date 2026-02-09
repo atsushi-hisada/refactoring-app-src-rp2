@@ -22,11 +22,7 @@ import jp.co.sss.crud.util.EmployeeDtoMappar;
 /**
  * 	DB操作処理用のクラス
  */
-public class EmployeeDAO {
-
-	// インスタンス化を禁止
-	private EmployeeDAO() {
-	}
+public class EmployeeDAO implements IEmployeeDAO {
 
 	/**
 	 * 全ての社員情報を検索
@@ -36,7 +32,8 @@ public class EmployeeDAO {
 	 * @throws SQLException
 	 * @throws ParseException
 	 */
-	public static List<Employee> findAll() throws SystemErrorException {
+	@Override
+	public List<Employee> findAll() throws SystemErrorException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -80,7 +77,8 @@ public class EmployeeDAO {
 	 * @throws IOException            入力処理でエラーが発生した場合に送出
 	 * @throws ParseException 
 	 */
-	public static List<Employee> findByEmpName(String searchWord)
+	@Override
+	public List<Employee> findByEmployeeName(String searchWord)
 			throws SystemErrorException {
 
 		Connection connection = null;
@@ -126,7 +124,8 @@ public class EmployeeDAO {
 
 	}
 
-	public static List<Employee> findByDeptId(Integer deptId)
+	@Override
+	public List<Employee> findByDeptId(Integer deptId)
 			throws SystemErrorException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -182,7 +181,8 @@ public class EmployeeDAO {
 	 * @throws IOException             入力処理でエラーが発生した場合に送出
 	 * @throws ParseException 
 	 */
-	public static void insertEmployee(Employee empDto) throws SystemErrorException {
+	@Override
+	public void insert(Employee empDto) throws SystemErrorException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -221,7 +221,8 @@ public class EmployeeDAO {
 	 * @throws IOException             入力処理でエラーが発生した場合に送出
 	 * @throws ParseException 
 	 */
-	public static void updateEmployee(Employee empDto) throws SystemErrorException {
+	@Override
+	public Integer update(Employee empDto) throws SystemErrorException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -241,9 +242,7 @@ public class EmployeeDAO {
 			preparedStatement.setInt(ConstantValue.SAVE_INDEX_EMP_ID, empDto.getEmpId());
 
 			// SQL文の実行(失敗時は戻り値0)
-			preparedStatement.executeUpdate();
-
-			System.out.println(ConstantMsg.UPDATE_COMPLETE);
+			return preparedStatement.executeUpdate();
 
 		} catch (ClassNotFoundException | SQLException e) {
 			// 独自例外の送出
@@ -263,7 +262,8 @@ public class EmployeeDAO {
 	 * @throws SQLException           DB処理でエラーが発生した場合に送出
 	 * @throws IOException            入力処理でエラーが発生した場合に送出
 	 */
-	public static void deleteEmployee(Integer deleteEmpId) throws SystemErrorException {
+	@Override
+	public Integer delete(Integer deleteEmpId) throws SystemErrorException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -278,9 +278,7 @@ public class EmployeeDAO {
 			preparedStatement.setInt(ConstantValue.DELETE_INDEX_EMP_ID, deleteEmpId);
 
 			// SQL文の実行(失敗時は戻り値0)
-			preparedStatement.executeUpdate();
-
-			System.out.println(ConstantMsg.DELETE_COMPLETE);
+			return preparedStatement.executeUpdate();
 
 		} catch (ClassNotFoundException | SQLException e) {
 			// 独自例外の送出
@@ -293,4 +291,5 @@ public class EmployeeDAO {
 
 		}
 	}
+
 }

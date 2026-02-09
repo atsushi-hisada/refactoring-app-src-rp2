@@ -29,8 +29,9 @@ public class EmployeeFindByEmpNameService implements IEmployeeService {
 		EmployeeNameReader employeeNameReader = new EmployeeNameReader();
 		// 社員名を入力
 		String inputEmpName = (String) employeeNameReader.input();
+		EmployeeDAO dao = new EmployeeDAO();
 		// 入力された値と一致する社員情報をリストに追加
-		employeeList = EmployeeDAO.findByEmpName(inputEmpName);
+		employeeList = dao.findByEmployeeName(inputEmpName);
 
 		// 社員情報を表示
 		ConsoleWriter.showEmployees(employeeList);

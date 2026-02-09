@@ -30,8 +30,9 @@ public class EmployeeFindByDeptIdService implements IEmployeeService {
 		EmployeeDeptIdReader employeeDeptIdReader = new EmployeeDeptIdReader();
 		// 部署IDを入力
 		Integer inputDeptId = (Integer) employeeDeptIdReader.input();
+		EmployeeDAO dao = new EmployeeDAO();
 		// 部署IDで検索した社員情報をリストに
-		employeeList = EmployeeDAO.findByDeptId(inputDeptId);
+		employeeList = dao.findByDeptId(inputDeptId);
 		// 社員情報を表示
 		ConsoleWriter.showEmployees(employeeList);
 	}

@@ -13,6 +13,7 @@ import jp.co.sss.crud.io.EmployeeEmpIdReader;
 import jp.co.sss.crud.io.EmployeeGenderReader;
 import jp.co.sss.crud.io.EmployeeNameReader;
 import jp.co.sss.crud.util.ConstantMsg;
+import jp.co.sss.crud.util.ConstantValue;
 import jp.co.sss.crud.util.ConstantValue.Gender;
 
 /**
@@ -52,7 +53,17 @@ public class EmployeeUpdateService implements IEmployeeService {
 		// Dtoに格納
 		Employee empDto = new Employee(updateEmpId, inputEmpName, inputGender, inputBirthday, department);
 
+		EmployeeDAO dao = new EmployeeDAO();
 		// 更新
-		EmployeeDAO.updateEmployee(empDto);
+		Integer updateResult = dao.update(empDto);
+
+		if (updateResult == ConstantValue.SQL_ERROR_RESULT) {
+			// SQL文の実行が失敗した場合
+			System.out.print(ConstantMsg.UPDATE_NOT_FOUND);
+		} else {
+			// 成功した場合
+			System.out.print(ConstantMsg.UPDATE_COMPLETE);
+		}
+
 	}
 }

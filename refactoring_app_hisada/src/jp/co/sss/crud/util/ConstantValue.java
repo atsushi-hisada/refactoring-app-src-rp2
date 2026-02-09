@@ -91,4 +91,7 @@ public class ConstantValue {
 	// 日付のフォーマット
 	public static final String DATE_FORMAT = "yyyy/MM/dd";
 
+	// SQL文実行時にエラーだったときの戻り値
+	public static final Integer SQL_ERROR_RESULT = 0;
+
 }
