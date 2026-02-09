@@ -11,8 +11,11 @@ public class Department {
 	}
 
 	public Department(Integer deptId) {
-		// TODO 自動生成されたコンストラクター・スタブ
 		this.deptId = deptId;
+	}
+
+	public Department(String deptName) {
+		this.deptName = deptName;
 	}
 
 	public Integer getDeptId() {

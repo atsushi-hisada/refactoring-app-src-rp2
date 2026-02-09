@@ -10,7 +10,9 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import jp.co.sss.crud.dto.Department;
 import jp.co.sss.crud.dto.Employee;
@@ -18,29 +20,31 @@ import jp.co.sss.crud.util.ConstantMsg;
 import jp.co.sss.crud.util.ConstantSQL;
 import jp.co.sss.crud.util.ConstantValue;
 import jp.co.sss.crud.util.ConstantValue.Gender;
+import jp.co.sss.crud.util.EmployeeDtoMappar;
 
 /**
- * DB操作処理用のクラス
- *
- * @author System Shared
+ * 	DB操作処理用のクラス
  */
-public class DBController {
+public class EmployeeDAO {
 
-	/** インスタンス化を禁止 */
-	private DBController() {
+	// インスタンス化を禁止
+	private EmployeeDAO() {
 	}
 
 	/**
 	 * 全ての社員情報を検索
-	 *
-	 * @throws ClassNotFoundException ドライバクラスが不在の場合に送出
-	 * @throws SQLException           DB処理でエラーが発生した場合に送出
+	 * 
+	 * @return 社員情報リスト
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws ParseException
 	 */
-	public static void findAll() throws ClassNotFoundException, SQLException {
+	public static List<Employee> findAll() throws ClassNotFoundException, SQLException, ParseException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-
+		List<Employee> employeeList = new ArrayList<Employee>();
 		try {
 			// DBに接続
 			connection = DBManager.getConnection();
@@ -51,36 +55,12 @@ public class DBController {
 			// SQL文を実行
 			resultSet = preparedStatement.executeQuery();
 
-			//resultSetの結果Setがない場合はfalse
-			if (!resultSet.isBeforeFirst()) {
-				System.out.println(ConstantMsg.NOT_FOUND);
-				return;
-			}
-
-			// レコードを出力
-			System.out.println(ConstantMsg.EMPLOYEE_LIST);
 			while (resultSet.next()) {
 				// DTOを作成し、セットする
-				Employee empDto = new Employee();
-				empDto.setEmpId(resultSet.getInt(ConstantValue.COL_EMP_ID));
-				empDto.setEmpName(resultSet.getString(ConstantValue.COL_EMP_NAME));
-				empDto.setGender(Gender.getGender(resultSet.getInt(ConstantValue.COL_GENDER)));
-				String bitrhdayString = resultSet.getString(ConstantValue.COL_BIRTHDAY);
-				// フォーマットを作成
-				SimpleDateFormat sdf = new SimpleDateFormat(ConstantValue.DATE_FORMAT);
-				empDto.setBirthday(sdf.parse(bitrhdayString));
-				Department department = new Department();
-				department.setDeptName(resultSet.getString(ConstantValue.COL_DEPT_NAME));
-				empDto.setDepartment(department);
-				// toStringで出力
-				System.out.print(empDto);
-				System.out.println("");
+				Employee empDto = EmployeeDtoMappar.employeeDtoMappar(resultSet);
+				employeeList.add(empDto);
 			}
-
-			System.out.println("");
-		} catch (ParseException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
+			return employeeList;
 		} finally {
 			// ResultSetをクローズ
 			DBManager.close(resultSet);
@@ -99,7 +79,8 @@ public class DBController {
 	 * @throws IOException            入力処理でエラーが発生した場合に送出
 	 * @throws ParseException 
 	 */
-	public static void findByEmpName() throws ClassNotFoundException, SQLException, IOException, ParseException {
+	public static List<Employee> findByEmpName()
+			throws ClassNotFoundException, SQLException, IOException, ParseException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		// 検索ワード
@@ -108,6 +89,7 @@ public class DBController {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+		List<Employee> employeeList = new ArrayList<Employee>();
 
 		try {
 			// DBに接続
@@ -125,33 +107,13 @@ public class DBController {
 
 			// SQL文を実行
 			resultSet = preparedStatement.executeQuery();
-			if (!resultSet.isBeforeFirst()) {
-				System.out.println(ConstantMsg.NOT_FOUND);
-				return;
-			}
-
-			System.out.println(ConstantMsg.EMPLOYEE_LIST);
 
 			while (resultSet.next()) {
 				// DTOを作成し、セットする
-				Employee empDto = new Employee();
-				empDto.setEmpId(resultSet.getInt(ConstantValue.COL_EMP_ID));
-				empDto.setEmpName(resultSet.getString(ConstantValue.COL_EMP_NAME));
-				empDto.setGender(Gender.getGender(resultSet.getInt(ConstantValue.COL_GENDER)));
-				String bitrhdayString = resultSet.getString(ConstantValue.COL_BIRTHDAY);
-				// フォーマットを作成
-				SimpleDateFormat sdf = new SimpleDateFormat(ConstantValue.DATE_FORMAT);
-				empDto.setBirthday(sdf.parse(bitrhdayString));
-				Department department = new Department();
-				department.setDeptName(resultSet.getString(ConstantValue.COL_DEPT_NAME));
-				empDto.setDepartment(department);
-				// toStringで出力
-				System.out.print(empDto);
-				System.out.println("");
+				Employee empDto = EmployeeDtoMappar.employeeDtoMappar(resultSet);
+				employeeList.add(empDto);
 			}
-
-			System.out.println("");
-
+			return employeeList;
 		} finally {
 			// クローズ処理
 			DBManager.close(resultSet);
@@ -160,22 +122,15 @@ public class DBController {
 			// DBとの接続を切断
 			DBManager.close(connection);
 		}
+
 	}
 
-	/**
-	 * 部署IDに該当する社員情報を検索
-	 *
-	 * @throws ClassNotFoundException ドライバクラスが不在の場合に送出
-	 * @throws SQLException           DB処理でエラーが発生した場合に送出
-	 * @throws IOException            入力処理でエラーが発生した場合に送出
-	 * @throws ParseException 
-	 */
-	public static void findByDeptId(String deptId)
-			throws ClassNotFoundException, SQLException, IOException, ParseException {
-
+	public static List<Employee> findByDeptId(String deptId)
+			throws ClassNotFoundException, SQLException, ParseException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+		List<Employee> employeeList = new ArrayList<Employee>();
 
 		try {
 			// DBに接続
@@ -194,31 +149,12 @@ public class DBController {
 			// SQL文を実行
 			resultSet = preparedStatement.executeQuery();
 
-			if (!resultSet.isBeforeFirst()) {
-				System.out.println(ConstantMsg.NOT_FOUND);
-				return;
-			}
-
-			System.out.println(ConstantMsg.EMPLOYEE_LIST);
 			while (resultSet.next()) {
 				// DTOを作成し、セットする
-				Employee empDto = new Employee();
-				empDto.setEmpId(resultSet.getInt(ConstantValue.COL_EMP_ID));
-				empDto.setEmpName(resultSet.getString(ConstantValue.COL_EMP_NAME));
-				empDto.setGender(Gender.getGender(resultSet.getInt(ConstantValue.COL_GENDER)));
-				String bitrhdayString = resultSet.getString(ConstantValue.COL_BIRTHDAY);
-				// フォーマットを作成
-				SimpleDateFormat sdf = new SimpleDateFormat(ConstantValue.DATE_FORMAT);
-				empDto.setBirthday(sdf.parse(bitrhdayString));
-				Department department = new Department();
-				department.setDeptName(resultSet.getString(ConstantValue.COL_DEPT_NAME));
-				empDto.setDepartment(department);
-				// toStringで出力
-				System.out.print(empDto);
-				System.out.println("");
+				Employee empDto = EmployeeDtoMappar.employeeDtoMappar(resultSet);
+				employeeList.add(empDto);
 			}
-
-			System.out.println("");
+			return employeeList;
 		} finally {
 			// クローズ処理
 			DBManager.close(resultSet);
@@ -270,7 +206,7 @@ public class DBController {
 			preparedStatement.executeUpdate();
 
 			// 登録完了メッセージを出力
-			System.out.println(ConstantMsg.UPDATE_COMPLETE);
+			System.out.println(ConstantMsg.REGISTER_COMPLETE);
 		} finally {
 			DBManager.close(preparedStatement);
 			DBManager.close(connection);
@@ -369,10 +305,7 @@ public class DBController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-
-		}
-
-		finally {
+		} finally {
 			// Statementをクローズ
 			try {
 				DBManager.close(preparedStatement);

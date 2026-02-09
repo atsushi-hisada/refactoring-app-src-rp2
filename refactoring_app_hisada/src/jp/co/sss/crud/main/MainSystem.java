@@ -6,7 +6,12 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.text.ParseException;
 
-import jp.co.sss.crud.db.DBController;
+import jp.co.sss.crud.service.EmployeeAllFindService;
+import jp.co.sss.crud.service.EmployeeDeleteService;
+import jp.co.sss.crud.service.EmployeeFindByDeptIdService;
+import jp.co.sss.crud.service.EmployeeFindByEmpNameService;
+import jp.co.sss.crud.service.EmployeeRegisterService;
+import jp.co.sss.crud.service.EmployeeUpdateService;
 import jp.co.sss.crud.util.ConstantMsg;
 import jp.co.sss.crud.util.ConstantValue.MenuItem;
 
@@ -49,7 +54,7 @@ public class MainSystem {
 			switch (menuItem) {
 			case MENU_SELECT_ALL:
 				// 全件表示機能の呼出
-				DBController.findAll();
+				EmployeeAllFindService.findAll();
 				break;
 
 			case MENU_SEARCH_EMP_NAME:
@@ -57,7 +62,7 @@ public class MainSystem {
 				System.out.print(ConstantMsg.INPUT_EMP_NAME);
 
 				// 検索機能の呼出
-				DBController.findByEmpName();
+				EmployeeFindByEmpNameService.findByEmpName();
 				break;
 
 			case MENU_SEARCH_DEPT_ID:
@@ -66,7 +71,7 @@ public class MainSystem {
 				String inputDeptId = br.readLine();
 
 				// 検索機能の呼出
-				DBController.findByDeptId(inputDeptId);
+				EmployeeFindByDeptIdService.findByDeptId(inputDeptId);
 				break;
 
 			case MENU_INSERT:
@@ -81,7 +86,7 @@ public class MainSystem {
 				inputDeptId = br.readLine();
 
 				// 登録機能の呼出
-				DBController.insertEmployee(inputEmpName, inputGender, inputBirthday, inputDeptId);
+				EmployeeRegisterService.insertEmployee(inputEmpName, inputGender, inputBirthday, inputDeptId);
 				break;
 
 			case MENU_UPDATE:
@@ -93,7 +98,7 @@ public class MainSystem {
 				Integer.parseInt(updateEmpId);
 
 				// 更新機能の呼出
-				DBController.updateEmployee(updateEmpId);
+				EmployeeUpdateService.updateEmployee(updateEmpId);
 				System.out.println(ConstantMsg.UPDATE_COMPLETE);
 
 				break;
@@ -103,7 +108,7 @@ public class MainSystem {
 				System.out.print(ConstantMsg.DELETE_INPUT_EMP_ID);
 
 				// 削除機能の呼出
-				DBController.deleteEmployee();
+				EmployeeDeleteService.deleteEmployee();
 				break;
 			case MENU_EXIT:
 				System.out.println(ConstantMsg.EXIT);
