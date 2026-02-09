@@ -39,4 +39,14 @@ public class ConstantMsg {
 
 	public static final String NOT_FOUND = "該当者はいませんでした";
 
+	public static final String SYSTEM_ERROR = "システムエラーが発生しました";
+
+	// 入力チェック
+	public static final String INPUT_ERROR = "不正な入力がありました";
+	public static final String INPUT_ERROR_MENU_NUMBER = "1以上7以下の整数を入力してください";
+	public static final String INPUT_ERROR_EMP_ID = "1以上9999以下の整数を入力してください";
+	public static final String INPUT_ERROR_DEPT_ID = "1以上3以下の整数を入力してください";
+	public static final String INPUT_ERROR_GENDER = "0,1,2,9を入力してください";
+	public static final String INPUT_ERROR_EMP_NAME = "1文字以上30文字以下の文字列を入力してください";
+	public static final String INPUT_ERROR_BIRTHDAY = "正しい形式(西暦年/月/日)で日付を入力してください";
 }

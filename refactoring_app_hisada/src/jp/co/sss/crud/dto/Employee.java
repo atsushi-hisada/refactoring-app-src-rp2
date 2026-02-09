@@ -1,7 +1,7 @@
 package jp.co.sss.crud.dto;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import jp.co.sss.crud.util.ConstantValue;
 import jp.co.sss.crud.util.ConstantValue.Gender;
@@ -18,21 +18,21 @@ public class Employee {
 	// 性別
 	private Gender gender;
 	// 生年月日
-	private Date birthday;
+	private LocalDate birthday;
 	// 所属部署
 	private Department department;
 
 	public Employee() {
 	}
 
-	public Employee(String empName, Gender gender, Date birthday, Department department) {
+	public Employee(String empName, Gender gender, LocalDate birthday, Department department) {
 		this.empName = empName;
 		this.gender = gender;
 		this.birthday = birthday;
 		this.department = department;
 	}
 
-	public Employee(Integer empId, String empName, Gender gender, Date birthday, Department department) {
+	public Employee(Integer empId, String empName, Gender gender, LocalDate birthday, Department department) {
 		this.empId = empId;
 		this.empName = empName;
 		this.gender = gender;
@@ -64,11 +64,11 @@ public class Employee {
 		this.gender = gender;
 	}
 
-	public Date getBirthday() {
+	public LocalDate getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
 
@@ -83,11 +83,11 @@ public class Employee {
 	// レコードを表示
 	@Override
 	public String toString() {
-		SimpleDateFormat sdf = new SimpleDateFormat(ConstantValue.DATE_FORMAT);
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(ConstantValue.DATE_FORMAT);
 		return this.getEmpId() + "\t" +
 				this.getEmpName() + "\t" +
 				this.getGender().getGenderLabel() + "\t" +
-				sdf.format(this.getBirthday()) + "\t" +
+				dtf.format(getBirthday()) + "\t" +
 				this.getDepartment().getDeptName();
 	}
 }

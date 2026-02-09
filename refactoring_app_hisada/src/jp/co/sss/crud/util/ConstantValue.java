@@ -28,7 +28,7 @@ public class ConstantValue {
 				}
 			}
 			// 引数と一致する定数がなかった場合
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(ConstantMsg.INPUT_ERROR_MENU_NUMBER);
 		}
 	}
 

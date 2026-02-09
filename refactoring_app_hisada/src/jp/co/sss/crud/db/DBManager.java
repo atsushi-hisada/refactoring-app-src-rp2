@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import jp.co.sss.crud.exception.SystemErrorException;
+import jp.co.sss.crud.util.ConstantMsg;
+
 /**
  * データベースに接続するクラス
  *
@@ -22,7 +25,7 @@ public class DBManager {
 	 * @return DBコネクション
 	 * @throws ClassNotFoundException
 	 *             ドライバクラスが見つからなかった場合
-	 * @throws SQLException
+	 * @throws SystemErrorException
 	 *             DB接続に失敗した場合
 	 */
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
@@ -41,12 +44,17 @@ public class DBManager {
 	 *
 	 * @param connection
 	 *            DBとの接続情報
-	 * @throws SQLException
+	 * @throws SystemErrorException
 	 *             クローズ処理に失敗した場合に送出
 	 */
-	public static void close(Connection connection) throws SQLException {
+	public static void close(Connection connection) throws SystemErrorException {
 		if (connection != null) {
-			connection.close();
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// 独自例外の送出
+				throw new SystemErrorException(ConstantMsg.SYSTEM_ERROR, e);
+			}
 		}
 	}
 
@@ -55,12 +63,17 @@ public class DBManager {
 	 *
 	 * @param preparedStatement
 	 *            ステートメント情報
-	 * @throws SQLException
+	 * @throws SystemErrorException
 	 *             クローズ処理に失敗した場合に送出
 	 */
-	public static void close(PreparedStatement preparedStatement) throws SQLException {
+	public static void close(PreparedStatement preparedStatement) throws SystemErrorException {
 		if (preparedStatement != null) {
-			preparedStatement.close();
+			try {
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// 独自例外の送出
+				throw new SystemErrorException(ConstantMsg.SYSTEM_ERROR, e);
+			}
 		}
 	}
 
@@ -69,12 +82,17 @@ public class DBManager {
 	 *
 	 * @param resultSet
 	 *            SQL検索結果
-	 * @throws SQLException
+	 * @throws SystemErrorException
 	 *             クローズ処理に失敗した場合に送出
 	 */
-	public static void close(ResultSet resultSet) throws SQLException {
+	public static void close(ResultSet resultSet) throws SystemErrorException {
 		if (resultSet != null) {
-			resultSet.close();
+			try {
+				resultSet.close();
+			} catch (SQLException e) {
+				// 独自例外の送出
+				throw new SystemErrorException(ConstantMsg.SYSTEM_ERROR, e);
+			}
 		}
 	}
 

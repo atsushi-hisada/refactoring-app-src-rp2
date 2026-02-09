@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import jp.co.sss.crud.exception.IllegalInputException;
 import jp.co.sss.crud.util.ConstantMsg;
 
 /**
@@ -15,11 +16,15 @@ public class EmployeeNameReader {
 	 * @return 社員名
 	 * @throws IOException
 	 */
-	public static String InputEmpName() throws IOException {
+	public static String InputEmpName() throws IllegalInputException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		// 社員名を入力
-		System.out.print(ConstantMsg.INPUT_EMP_NAME);
-		String InputEmpName = br.readLine();
-		return InputEmpName;
+		try {
+			// 社員名を入力
+			System.out.print(ConstantMsg.INPUT_EMP_NAME);
+			String InputEmpName = br.readLine();
+			return InputEmpName;
+		} catch (IOException e) {
+			throw new IllegalInputException(ConstantMsg.INPUT_ERROR_EMP_NAME, e);
+		}
 	}
 }

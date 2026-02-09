@@ -4,9 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
+import jp.co.sss.crud.exception.IllegalInputException;
 import jp.co.sss.crud.util.ConstantMsg;
 import jp.co.sss.crud.util.ConstantValue;
 
@@ -21,14 +22,18 @@ public class EmployeeBirthdayReader {
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	public static Date InputBirthday() throws IOException, ParseException {
+	public static LocalDate InputBirthday() throws IllegalInputException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		// 生年月日を入力
-		System.out.print(ConstantMsg.INPUT_BIRTHDAY);
-		String bitrhdayString = br.readLine();
-		// フォーマットを作成
-		SimpleDateFormat sdf = new SimpleDateFormat(ConstantValue.DATE_FORMAT);
-		Date bitrhday = sdf.parse(bitrhdayString);
-		return bitrhday;
+		try {
+			// 生年月日を入力
+			System.out.print(ConstantMsg.INPUT_BIRTHDAY);
+			String bitrhdayString = br.readLine();
+			// フォーマットを作成
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern(ConstantValue.DATE_FORMAT);
+			LocalDate bitrhday = LocalDate.parse(bitrhdayString, dtf);
+			return bitrhday;
+		} catch (IOException e) {
+			throw new IllegalInputException(ConstantMsg.INPUT_ERROR_DEPT_ID, e);
+		}
 	}
 }

@@ -3,11 +3,13 @@ package jp.co.sss.crud.service;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.Date;
+import java.time.LocalDate;
 
 import jp.co.sss.crud.db.EmployeeDAO;
 import jp.co.sss.crud.dto.Department;
 import jp.co.sss.crud.dto.Employee;
+import jp.co.sss.crud.exception.IllegalInputException;
+import jp.co.sss.crud.exception.SystemErrorException;
 import jp.co.sss.crud.io.EmployeeBirthdayReader;
 import jp.co.sss.crud.io.EmployeeDeptIdReader;
 import jp.co.sss.crud.io.EmployeeGenderReader;
@@ -26,16 +28,17 @@ public class EmployeeRegisterService {
 	 * @param genderString
 	 * @param bitrhdayString
 	 * @param deptIdString
+	 * @throws IllegalInputException 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	public static void insertEmployee() throws ClassNotFoundException, SQLException, IOException, ParseException {
+	public static void insertEmployee() throws SystemErrorException, IllegalInputException {
 		// 登録する値を入力
 		String inputEmpName = EmployeeNameReader.InputEmpName();
 		Gender inputGender = EmployeeGenderReader.InputGender();
-		Date inputBirthday = EmployeeBirthdayReader.InputBirthday();
+		LocalDate inputBirthday = EmployeeBirthdayReader.InputBirthday();
 		Integer inputDeptId = EmployeeDeptIdReader.InputDeptId();
 		Department department = new Department();
 		department.setDeptId(inputDeptId);
