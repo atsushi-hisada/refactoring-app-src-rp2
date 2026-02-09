@@ -1,8 +1,5 @@
 package jp.co.sss.crud.service;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.text.ParseException;
 import java.time.LocalDate;
 
 import jp.co.sss.crud.db.EmployeeDAO;
@@ -24,17 +21,10 @@ public class EmployeeRegisterService {
 	/**
 	 * 新規登録
 	 * 
-	 * @param empName
-	 * @param genderString
-	 * @param bitrhdayString
-	 * @param deptIdString
-	 * @throws IllegalInputException 
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 * @throws IOException
-	 * @throws ParseException
+	 * @throws SystemErrorException 継続不能なエラー
+	 * @throws IllegalInputException 不正入力エラー
 	 */
-	public static void insertEmployee() throws SystemErrorException, IllegalInputException {
+	public static void execute() throws SystemErrorException, IllegalInputException {
 		// 登録する値を入力
 		String inputEmpName = EmployeeNameReader.InputEmpName();
 		Gender inputGender = EmployeeGenderReader.InputGender();

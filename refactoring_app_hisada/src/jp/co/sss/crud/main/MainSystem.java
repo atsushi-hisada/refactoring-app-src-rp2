@@ -39,32 +39,32 @@ public class MainSystem {
 				switch (menuItem) {
 				case MENU_SELECT_ALL:
 					// 全件表示機能の呼出
-					EmployeeAllFindService.findAll();
+					EmployeeAllFindService.execute();
 					break;
 
 				case MENU_SEARCH_EMP_NAME:
 					// 検索機能の呼出
-					EmployeeFindByEmpNameService.findByEmpName();
+					EmployeeFindByEmpNameService.execute();
 					break;
 
 				case MENU_SEARCH_DEPT_ID:
 					// 検索機能の呼出
-					EmployeeFindByDeptIdService.findByDeptId();
+					EmployeeFindByDeptIdService.execute();
 					break;
 
 				case MENU_INSERT:
 					// 登録機能の呼出
-					EmployeeRegisterService.insertEmployee();
+					EmployeeRegisterService.execute();
 					break;
 
 				case MENU_UPDATE:
 					// 更新機能の呼出
-					EmployeeUpdateService.updateEmployee();
+					EmployeeUpdateService.execute();
 					break;
 
 				case MENU_DELETE:
 					// 削除機能の呼出
-					EmployeeDeleteService.deleteEmployee();
+					EmployeeDeleteService.execute();
 					break;
 
 				case MENU_EXIT:

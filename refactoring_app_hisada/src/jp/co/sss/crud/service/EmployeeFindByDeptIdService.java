@@ -20,7 +20,7 @@ public class EmployeeFindByDeptIdService {
 	 * @throws SystemErrorException 継続不能なエラー
 	 * @throws IllegalInputException 不正入力エラー
 	 */
-	public static void findByDeptId()
+	public static void execute()
 			throws SystemErrorException, IllegalInputException {
 		List<Employee> employeeList = new ArrayList<Employee>();
 		// 部署IDを入力

@@ -26,7 +26,7 @@ public class EmployeeUpdateService {
 	 * @throws SystemErrorException 継続不能なエラー
 	 * @throws IllegalInputException 不正入力エラー
 	 */
-	public static void updateEmployee() throws SystemErrorException, IllegalInputException {
+	public static void execute() throws SystemErrorException, IllegalInputException {
 		// 更新する社員IDを入力
 		System.out.print(ConstantMsg.UPDATE_INPUT_EMP_ID);
 		Integer updateEmpId = EmployeeEmpIdReader.InputEmpId();

@@ -14,13 +14,14 @@ import jp.co.sss.crud.util.ConstantMsg;
  * 社員名に該当する社員情報を表示させるクラス
  */
 public class EmployeeFindByEmpNameService {
+
 	/**
 	 * 社員名に該当する社員情報を表示
 	 *
 	 * @throws SystemErrorException 継続不能なエラー
 	 * @throws IllegalInputException 不正入力エラー
 	 */
-	public static void findByEmpName()
+	public static void execute()
 			throws SystemErrorException, IllegalInputException {
 		List<Employee> employeeList = new ArrayList<Employee>();
 		// 社員名検索

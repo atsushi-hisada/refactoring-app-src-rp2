@@ -10,13 +10,14 @@ import jp.co.sss.crud.util.ConstantMsg;
  * 社員情報を削除するクラス
  */
 public class EmployeeDeleteService {
+
 	/**
 	 * 社員情報を削除
 	 * 
 	 * @throws SystemErrorException 継続不能なエラー
 	 * @throws IllegalInputException 不正入力エラー
 	 */
-	public static void deleteEmployee()
+	public static void execute()
 			throws SystemErrorException, IllegalInputException {
 		// 削除する社員IDを入力
 		System.out.print(ConstantMsg.DELETE_INPUT_EMP_ID);
