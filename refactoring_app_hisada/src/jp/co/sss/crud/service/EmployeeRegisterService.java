@@ -25,15 +25,26 @@ public class EmployeeRegisterService {
 	 * @throws IllegalInputException 不正入力エラー
 	 */
 	public static void execute() throws SystemErrorException, IllegalInputException {
+
+		// インスタンスを生成
+		EmployeeNameReader employeeNameReader = new EmployeeNameReader();
+		EmployeeGenderReader employeeGenderReader = new EmployeeGenderReader();
+		EmployeeBirthdayReader employeeBirthdayReader = new EmployeeBirthdayReader();
+		EmployeeDeptIdReader employeeDeptIdReader = new EmployeeDeptIdReader();
+
 		// 登録する値を入力
-		String inputEmpName = EmployeeNameReader.InputEmpName();
-		Gender inputGender = EmployeeGenderReader.InputGender();
-		LocalDate inputBirthday = EmployeeBirthdayReader.InputBirthday();
-		Integer inputDeptId = EmployeeDeptIdReader.InputDeptId();
+		String inputEmpName = (String) employeeNameReader.input();
+		Gender inputGender = (Gender) employeeGenderReader.input();
+		LocalDate inputBirthday = (LocalDate) employeeBirthdayReader.input();
+		Integer inputDeptId = (Integer) employeeDeptIdReader.input();
+
+		// 部署IDをDTOに入れるために部署クラスにセット
 		Department department = new Department();
 		department.setDeptId(inputDeptId);
+
 		// Dtoに格納
 		Employee empDto = new Employee(inputEmpName, inputGender, inputBirthday, department);
+
 		// 入力した情報を登録
 		EmployeeDAO.insertEmployee(empDto);
 	}

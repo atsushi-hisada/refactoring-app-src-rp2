@@ -12,6 +12,7 @@ public class ConsoleWriter {
 
 	// 社員情報を表示
 	public static void showEmployees(List<Employee> employeeList) {
+
 		if (employeeList.isEmpty()) {
 			showNonExistTarget();//対象者がいませんでした と表示 
 		} else {
@@ -24,6 +25,7 @@ public class ConsoleWriter {
 
 	//メニュー表示
 	public static void showMenu() {
+
 		System.out.println(ConstantMsg.MENU_TITLE);
 		System.out.println(ConstantMsg.MENU_FINDALL);
 		System.out.println(ConstantMsg.MENU_FINDBYEMPNAME);
@@ -33,7 +35,6 @@ public class ConsoleWriter {
 		System.out.println(ConstantMsg.MENU_DELETE_EMPLOYEE);
 		System.out.println(ConstantMsg.MENU_EXIT);
 		System.out.print(ConstantMsg.INPUT_MENU_NUMBER);
-
 	}
 
 	// レコードのカラム部分の表示

@@ -25,8 +25,11 @@ public class EmployeeFindByEmpNameService {
 			throws SystemErrorException, IllegalInputException {
 		List<Employee> employeeList = new ArrayList<Employee>();
 		// 社員名検索
-		System.out.print(ConstantMsg.INPUT_EMP_NAME);
-		String inputEmpName = EmployeeNameReader.InputEmpName();
+		System.out.println(ConstantMsg.SEARCH_EMP_NAME);
+		EmployeeNameReader employeeNameReader = new EmployeeNameReader();
+		// 社員名を入力
+		String inputEmpName = (String) employeeNameReader.input();
+		// 入力された値と一致する社員情報をリストに追加
 		employeeList = EmployeeDAO.findByEmpName(inputEmpName);
 
 		// 社員情報を表示

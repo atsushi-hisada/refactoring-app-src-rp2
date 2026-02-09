@@ -27,18 +27,31 @@ public class EmployeeUpdateService {
 	 * @throws IllegalInputException 不正入力エラー
 	 */
 	public static void execute() throws SystemErrorException, IllegalInputException {
+
+		// インスタンスを生成
+		EmployeeEmpIdReader employeeEmpIdReader = new EmployeeEmpIdReader();
+		EmployeeNameReader employeeNameReader = new EmployeeNameReader();
+		EmployeeGenderReader employeeGenderReader = new EmployeeGenderReader();
+		EmployeeBirthdayReader employeeBirthdayReader = new EmployeeBirthdayReader();
+		EmployeeDeptIdReader employeeDeptIdReader = new EmployeeDeptIdReader();
+
 		// 更新する社員IDを入力
 		System.out.print(ConstantMsg.UPDATE_INPUT_EMP_ID);
-		Integer updateEmpId = EmployeeEmpIdReader.InputEmpId();
+		Integer updateEmpId = (Integer) employeeEmpIdReader.input();
+
 		// 更新する値を入力
-		String inputEmpName = EmployeeNameReader.InputEmpName();
-		Gender inputGender = EmployeeGenderReader.InputGender();
-		LocalDate inputBirthday = EmployeeBirthdayReader.InputBirthday();
-		Integer inputDeptId = EmployeeDeptIdReader.InputDeptId();
+		String inputEmpName = (String) employeeNameReader.input();
+		Gender inputGender = (Gender) employeeGenderReader.input();
+		LocalDate inputBirthday = (LocalDate) employeeBirthdayReader.input();
+		Integer inputDeptId = (Integer) employeeDeptIdReader.input();
+
+		// 部署IDをDTOに入れるために部署クラスにセット
 		Department department = new Department();
 		department.setDeptId(inputDeptId);
+
 		// Dtoに格納
 		Employee empDto = new Employee(updateEmpId, inputEmpName, inputGender, inputBirthday, department);
+
 		// 更新
 		EmployeeDAO.updateEmployee(empDto);
 	}

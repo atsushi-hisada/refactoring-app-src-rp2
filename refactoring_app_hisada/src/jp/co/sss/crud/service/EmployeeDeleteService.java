@@ -19,9 +19,12 @@ public class EmployeeDeleteService {
 	 */
 	public static void execute()
 			throws SystemErrorException, IllegalInputException {
-		// 削除する社員IDを入力
+
 		System.out.print(ConstantMsg.DELETE_INPUT_EMP_ID);
-		int deleteEmpId = EmployeeEmpIdReader.InputEmpId();
+		EmployeeEmpIdReader employeeEmpIdReader = new EmployeeEmpIdReader();
+		// 削除する社員IDを入力
+		Integer deleteEmpId = (Integer) employeeEmpIdReader.input();
+		// 削除を実行
 		EmployeeDAO.deleteEmployee(deleteEmpId);
 	}
 }

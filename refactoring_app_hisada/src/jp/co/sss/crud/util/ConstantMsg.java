@@ -24,6 +24,10 @@ public class ConstantMsg {
 	public static final String INPUT_BIRTHDAY = "生年月日(西暦年/月/日):";
 	public static final String INPUT_DEPT_ID = "部署ID(1:営業部、2:経理部、3:総務部):";
 
+	// 検索機能
+	public static final String SEARCH_EMP_NAME = "社員名を入力してください";
+	public static final String SEARCH_DEPT_ID = "部署ID(1:営業部、2:経理部、3:総務部)を入力してください";
+
 	// 登録機能
 	public static final String REGISTER_COMPLETE = "社員情報を登録しました";
 

@@ -31,10 +31,12 @@ public class MainSystem {
 			try {
 				// メニューの表示
 				ConsoleWriter.showMenu();
-
+				// インスタンス生成
+				MenuNoReader menuNoReader = new MenuNoReader();
 				// メニュー番号の入力
-				int inputMenuNumber = MenuNoReader.InputMenuNo();
+				int inputMenuNumber = (int) menuNoReader.input();
 				menuItem = MenuItem.getByMenuNumber(inputMenuNumber);
+
 				// 機能の呼出
 				switch (menuItem) {
 				case MENU_SELECT_ALL:
@@ -68,18 +70,21 @@ public class MainSystem {
 					break;
 
 				case MENU_EXIT:
-					System.out.println(ConstantMsg.EXIT);
+					break;
 				}
+
 			} catch (SystemErrorException e) {
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 				break;
+
 			} catch (IllegalInputException e) {
 				System.out.println(e.getMessage());
 				System.out.println();
 				continue;
-
 			}
+
 		} while (menuItem != MenuItem.MENU_EXIT);
+		System.out.println(ConstantMsg.EXIT);
 	}
 }

@@ -18,9 +18,10 @@ public class EmployeeAllFindService {
 	 * @throws SystemErrorException 継続不能なエラー
 	 */
 	public static void execute() throws SystemErrorException {
-		List<Employee> employeeList = new ArrayList<Employee>();
-		employeeList = EmployeeDAO.findAll();
 
+		List<Employee> employeeList = new ArrayList<Employee>();
+		// 全件検索した情報をリストへ
+		employeeList = EmployeeDAO.findAll();
 		// 社員情報を表示
 		ConsoleWriter.showEmployees(employeeList);
 	}
