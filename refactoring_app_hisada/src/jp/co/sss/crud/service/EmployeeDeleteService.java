@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 import jp.co.sss.crud.db.EmployeeDAO;
+import jp.co.sss.crud.io.EmployeeEmpIdReader;
+import jp.co.sss.crud.util.ConstantMsg;
 
 /**
  * 社員情報を削除するクラス
@@ -21,6 +23,9 @@ public class EmployeeDeleteService {
 	 */
 	public static void deleteEmployee()
 			throws ClassNotFoundException, SQLException, IOException, ParseException {
-		EmployeeDAO.deleteEmployee();
+		// 削除する社員IDを入力
+		System.out.print(ConstantMsg.DELETE_INPUT_EMP_ID);
+		int deleteEmpId = EmployeeEmpIdReader.InputEmpId();
+		EmployeeDAO.deleteEmployee(deleteEmpId);
 	}
 }

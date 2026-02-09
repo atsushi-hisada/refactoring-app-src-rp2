@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.text.ParseException;
 
+import jp.co.sss.crud.io.MenuNoReader;
 import jp.co.sss.crud.service.EmployeeAllFindService;
 import jp.co.sss.crud.service.EmployeeDeleteService;
 import jp.co.sss.crud.service.EmployeeFindByDeptIdService;
@@ -47,8 +48,7 @@ public class MainSystem {
 			System.out.print(ConstantMsg.INPUT_MENU_NUMBER);
 
 			// メニュー番号の入力
-			String inputMenuNumberStr = br.readLine();
-			int inputMenuNumber = Integer.parseInt(inputMenuNumberStr);
+			int inputMenuNumber = MenuNoReader.InputMenuNo();
 			menuItem = MenuItem.getByMenuNumber(inputMenuNumber);
 			// 機能の呼出
 			switch (menuItem) {
@@ -58,58 +58,30 @@ public class MainSystem {
 				break;
 
 			case MENU_SEARCH_EMP_NAME:
-				// 社員名検索
-				System.out.print(ConstantMsg.INPUT_EMP_NAME);
-
 				// 検索機能の呼出
 				EmployeeFindByEmpNameService.findByEmpName();
 				break;
 
 			case MENU_SEARCH_DEPT_ID:
-				// 検索する部署IDを入力
-				System.out.print(ConstantMsg.INPUT_DEPT_ID);
-				String inputDeptId = br.readLine();
-
 				// 検索機能の呼出
-				EmployeeFindByDeptIdService.findByDeptId(inputDeptId);
+				EmployeeFindByDeptIdService.findByDeptId();
 				break;
 
 			case MENU_INSERT:
-				// 登録する値を入力
-				System.out.print(ConstantMsg.INPUT_EMP_NAME);
-				String inputEmpName = br.readLine();
-				System.out.print(ConstantMsg.INPUT_GENDER);
-				String inputGender = br.readLine();
-				System.out.print(ConstantMsg.INPUT_BIRTHDAY);
-				String inputBirthday = br.readLine();
-				System.out.print(ConstantMsg.INPUT_DEPT_ID);
-				inputDeptId = br.readLine();
-
 				// 登録機能の呼出
-				EmployeeRegisterService.insertEmployee(inputEmpName, inputGender, inputBirthday, inputDeptId);
+				EmployeeRegisterService.insertEmployee();
 				break;
 
 			case MENU_UPDATE:
-				// 更新する社員IDを入力
-				System.out.print(ConstantMsg.UPDATE_INPUT_EMP_ID);
-
-				// 更新する値を入力する
-				String updateEmpId = br.readLine();
-				Integer.parseInt(updateEmpId);
-
 				// 更新機能の呼出
-				EmployeeUpdateService.updateEmployee(updateEmpId);
-				System.out.println(ConstantMsg.UPDATE_COMPLETE);
-
+				EmployeeUpdateService.updateEmployee();
 				break;
 
 			case MENU_DELETE:
-				// 削除する社員IDを入力
-				System.out.print(ConstantMsg.DELETE_INPUT_EMP_ID);
-
 				// 削除機能の呼出
 				EmployeeDeleteService.deleteEmployee();
 				break;
+
 			case MENU_EXIT:
 				System.out.println(ConstantMsg.EXIT);
 			}

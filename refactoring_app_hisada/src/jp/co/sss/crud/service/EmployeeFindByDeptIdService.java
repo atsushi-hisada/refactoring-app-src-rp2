@@ -8,6 +8,7 @@ import java.util.List;
 
 import jp.co.sss.crud.db.EmployeeDAO;
 import jp.co.sss.crud.dto.Employee;
+import jp.co.sss.crud.io.EmployeeDeptIdReader;
 
 /**
  * 
@@ -22,11 +23,12 @@ public class EmployeeFindByDeptIdService {
 	 * @throws IOException            入力処理でエラーが発生した場合に送出
 	 * @throws ParseException 
 	 */
-	public static void findByDeptId(String deptId)
+	public static void findByDeptId()
 			throws ClassNotFoundException, SQLException, IOException, ParseException {
 		List<Employee> employeeList = new ArrayList<Employee>();
-		employeeList = EmployeeDAO.findByDeptId(deptId);
-
+		// 部署IDを入力
+		Integer inputDeptId = EmployeeDeptIdReader.InputDeptId();
+		employeeList = EmployeeDAO.findByDeptId(inputDeptId);
 		// 社員情報を表示
 		ConsoleWriter.showEmployees(employeeList);
 	}
