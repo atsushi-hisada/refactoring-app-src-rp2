@@ -89,7 +89,7 @@ public class ConstantValue {
 	public static final int DELETE_INDEX_EMP_ID = 1;
 
 	// 日付のフォーマット
-	public static final String DATE_FORMAT = "yyyy/MM/dd";
+	public static final String DATE_FORMAT = "uuuu/M/d";
 
 	// SQL文実行時にエラーだったときの戻り値
 	public static final Integer SQL_ERROR_RESULT = 0;

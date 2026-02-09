@@ -45,8 +45,7 @@ public class EmployeeBirthdayReader implements IConsoleReader {
 			throw new SystemErrorException(ConstantMsg.SYSTEM_ERROR, e);
 		}
 		// 存在している生年月日のパターンを作成
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(ConstantValue.DATE_FORMAT)
-				.withResolverStyle(ResolverStyle.STRICT);
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(ConstantValue.DATE_FORMAT);
 		// 型変換
 		LocalDate bitrhday = LocalDate.parse(inputBitrhdayString, dtf);
 		return bitrhday;
